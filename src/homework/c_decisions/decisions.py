@@ -1,5 +1,5 @@
 def display_menu(): #will display the menu options
-    print("Menu:")
+    print("Menu (Select an Option):")
     print("1. Letter grade using if")
     print("2. Letter grade using switch")
     print("3. Exit")
