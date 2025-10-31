@@ -1,6 +1,6 @@
 import unittest
 
-from tests.homework.e_functions.tests_functions import TestPayrollFunctions
+from tests.homework.h_strings.tests_strings import TestStrings
 
-suite = unittest.TestLoader().loadTestsFromTestCase(TestPayrollFunctions)
+suite = unittest.TestLoader().loadTestsFromTestCase(TestStrings)
 unittest.TextTestRunner(verbosity=2).run(suite)
