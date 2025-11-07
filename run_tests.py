@@ -1,6 +1,8 @@
 import unittest
 
-from tests.homework.h_strings.tests_strings import TestStrings
+from tests.homework.g_lists_and_tuples import tests_lists_and_tuples
 
-suite = unittest.TestLoader().loadTestsFromTestCase(TestStrings)
-unittest.TextTestRunner(verbosity=2).run(suite)
+
+suite = unittest.TestLoader().loadTestsFromModule(tests_lists_and_tuples)
+unittest.TextTestRunner().run(suite)
+
