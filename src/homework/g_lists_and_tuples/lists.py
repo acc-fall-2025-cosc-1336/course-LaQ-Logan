@@ -1,33 +1,96 @@
+dna_lists = [ # nested lists representing DNA sequence samples
+    ['T','T','T','C','C','A','T','T','T','A'], 
+    ['G','A','T','T','C','A','T','T','T','C'],
+    ['T','T','T','C','C','A','T','T','T','T'],
+    ['G','T','T','C','C','A','T','T','T','A']
+]
+
+
 def display_menu(): # will show the menu options
-    print ("\nMenu:")
-    print ("1. show the list high/low values ")
-    print ("2. Exit ")
+    print("Sample DNA sequences for p-distance") # display sample DNA lists to user
+    print("List 1:", dna_lists[0]) 
+    print("List 2:", dna_lists[1])
+    print("List 3:", dna_lists[2])
+    print("List 4:", dna_lists[3])
+    print()  # blank line for spacing
+    
+    print("Menu (Select an Option):")
+    print("1. Show p-distance matrix")
+    print("2. Exit")
+
 
 def run_menu(): # will diplay the menu and handle user choices
     while True:
         display_menu()
-        choice = input("Enter your choice: ")
+        choice = input("Enter your choice, option 1 or 2: ")
+        print()  # blank line for spacing
         if handle_choice(choice):
             break
 
 def handle_choice(choice): # will process the user choice and return their result or exit 
     if choice == '1':
-        numbers_list = get_user_list() # get the user list of numbers
+        print("Calculating p-distance matrix...")
+        
+        matrix = get_p_distance_matrix(dna_lists) #will calculate the p-distance matrix
+        print_matrix(matrix)
 
-        lowest_value = get_lowest_list_value(numbers_list) # get the lowest value from the list
-        highest_value = get_highest_list_value(numbers_list) # get the highest value from the list
-
-        print(f"Lowest value: {lowest_value}") # display the lowest value
-        print(f"Highest value: {highest_value}") # display the highest value
-
-        return False 
-    elif choice == '2': # exit the program
-        print("Exiting the program.")
-        return True
+        while True:
+            again = input("Do you want to go back to the menu? (yes/no): ").strip().lower() #go back to menu or exit
+            if again in ['yes', 'y']: #the user wants to go back to the menu
+                return False  # go back to menu
+            elif again in ['no', 'n']:  #user exits program
+                print("Exiting program. Goodbye!")
+                return True   # exit program
+            else:
+                print("Invalid input. Please type 'yes' or 'no'.") #invalid input, ask again
+                
+    elif choice == '2':
+        print("Exiting program. Goodbye!")
+        return True  # exit program
     else:
-        print("Invalid choice. Please try again.") #handles invalid menu choice
-        return False
-    
+        print("Invalid choice. Please enter 1 or 2.")
+        return False  # invalid → go back to menu
+
+
+def print_matrix(matrix): # will print the p-distance matrix in formatted way
+
+    for row in matrix: # iterate through each row of the matrix
+        formatted = [] # list to hold formatted string values
+        for value in row:  # iterate through each value in the row
+            formatted.append(f"{value:.5f}") # format each value to 5 decimal places
+        print(" ".join(formatted)) # join formatted values with space and print
+
+
+
+
+def get_p_distance(list1, list2): # calculates the p-distance between two lists
+    differences = 0 # initialize difference counter 
+    for i in range(len(list1)): # iterate through both lists and count differences
+        if list1[i] != list2[i]: # list values differ at this position
+            differences += 1 # increase difference count by 1
+
+    return differences / len(list1) # return p-distance as differences divided by length of lists
+
+
+
+
+def get_p_distance_matrix(list_of_lists): # generates a p-distance matrix for a list of lists
+    size = len(list_of_lists) # size of the matrix is length of the list of lists
+    matrix = [] # initialize empty matrix
+
+    for i in range(size): # iterate through each list to create matrix rows
+        row = [] # initialize empty row
+        for j in range(size): # iterate through each list to create matrix columns
+            dist = get_p_distance(list_of_lists[i], list_of_lists[j]) # calculate p-distance between two lists
+            row.append(dist) # add p-distance to the current row
+        matrix.append(row) # add completed row to the matrix
+
+    return matrix # return the completed p-distance matrix
+
+
+
+
+
 def get_lowest_list_value(values): # returns the lowest value from a list of numbers
         if not values:
             return None
