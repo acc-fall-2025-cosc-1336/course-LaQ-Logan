@@ -61,7 +61,7 @@ def add_or_update_item(): #will add or update an item in the inventory
 
 def delete_item(): #will delete an item from the inventory
     widget_name = input("Enter widget name to delete: ") #this is the name of the widget to delete
-    messade = remove_inventory_widget(widgets, widget_name) #call the remove_inventory_widget function ( inventory dict, widget name)
+    message = remove_inventory_widget(widgets, widget_name) #call the remove_inventory_widget function ( inventory dict, widget name)
     print(message) #print the result message from the deletion attempt
     print("Current inventory:", widgets) #print the current inventory after deletion attempt
 
